@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mc
-        image: nginx
+        image: evns/hello-world:1
         ports:
         - containerPort: 80
       
