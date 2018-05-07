@@ -2,6 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: example-app
+  namespace: chrisrocks
 spec:
   replicas: 3
   template:
