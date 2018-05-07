@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mc
-        image: evns/hello-world:1
+        image: evns/hello-world:2
         ports:
         - containerPort: 80
       
