@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mastercard
+  namespace: payments
+spec:
+  minReadySeconds: 5
+  replicas: 5
+  template:
+    metadata:
+      labels:
+        name: mastercard
+    spec:
+      containers:
+      - name: mc
+        image: nginx
+        ports:
+        - containerPort: 80
+      
