@@ -58,6 +58,7 @@ spec:
         - --git-url=git@github.com:evnsio/flux-playground
         - --git-branch=master
         - --git-path=environments/production
+        - --git-poll-interval=60s
 
         # include these next two to connect to an "upstream" service
         # (e.g., Weave Cloud). The token is particular to the service.
