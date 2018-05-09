@@ -13,6 +13,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-kube-state-metrics
+  namespace: monitoring
 spec:
   clusterIP: None
   ports:

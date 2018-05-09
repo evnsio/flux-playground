@@ -10,6 +10,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-alertmanager
+  namespace: monitoring
 data:
   alertmanager.yml: |
     global: null

@@ -10,6 +10,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-node-exporter
+  namespace: monitoring
 spec:
   updateStrategy:
     type: OnDelete

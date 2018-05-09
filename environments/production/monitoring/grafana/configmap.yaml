@@ -10,6 +10,7 @@ metadata:
     heritage: "Tiller"
     release: "prod"
   name: prod-grafana-config
+  namespace: monitoring
 data:
   grafana.ini: |
     ; instance_name = ${HOSTNAME}

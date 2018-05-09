@@ -12,6 +12,7 @@ metadata:
     heritage: "Tiller"
     release: "prod"
   name: prod-grafana
+  namespace: monitoring
 spec:
   rules:
     - host: grafana.prod

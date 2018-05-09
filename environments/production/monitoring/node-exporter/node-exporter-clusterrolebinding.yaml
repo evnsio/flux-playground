@@ -11,6 +11,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-node-exporter
+  namespace: monitoring
 subjects:
   - kind: ServiceAccount
     name: prod-prometheus-node-exporter

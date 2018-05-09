@@ -5,7 +5,6 @@ kind: Service
 metadata:
   annotations:
     prometheus.io/scrape: "true"
-    
   labels:
     app: prometheus
     chart: prometheus-5.4.3
@@ -13,6 +12,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-node-exporter
+  namespace: monitoring
 spec:
   clusterIP: None
   ports:
