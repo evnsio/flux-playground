@@ -10,6 +10,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-server
+  namespace: monitoring
 spec:
   accessModes:
     - ReadWriteOnce
