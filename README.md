@@ -1,6 +1,10 @@
 # Setup
 
-## Install flux
+## Install Helm
+
+Follow the instructions [here](https://docs.helm.sh/using_helm/#quickstart).
+
+## Install flux and the helm operator
 
 Edit the args supplied to the flux daemon:
 

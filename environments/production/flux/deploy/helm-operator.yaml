@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: flux-helm-operator
+  labels:
+    name: flux-helm-operator
+    app: weave-flux
+    weave-cloud-component: flux
+    weave-flux-component: helm-operator
+  namespace: weave
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: flux-helm-operator
+        app: weave-flux
+        weave-cloud-component: flux
+        weave-flux-component: helm-operator
+    spec:
+      volumes:
+      - name: git-key
+        secret:
+          secretName: flux-git-deploy
+      serviceAccountName: flux
+      containers:
+      - name: flux-helm-operator
+        image: 'quay.io/weaveworks/helm-operator:0.1.0-alpha'
+        imagePullPolicy: IfNotPresent
+        volumeMounts:
+        - name: git-key
+          mountPath: /etc/fluxd/ssh
+        args:
+        # replace (at least) the following URL
+        - '--git-url=git@github.com:evnsio/flux-playground.git'
+        - '--git-branch=master'
+        - '--git-charts-path=charts'
