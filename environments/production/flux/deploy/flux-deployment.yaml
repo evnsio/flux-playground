@@ -3,7 +3,7 @@ apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
   name: flux
-  namespace: deploy
+  namespace: weave
 spec:
   replicas: 1
   strategy:
