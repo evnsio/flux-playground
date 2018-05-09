@@ -5,7 +5,6 @@ kind: Service
 metadata:
   annotations:
     prometheus.io/probe: pushgateway
-    
   labels:
     app: prometheus
     chart: prometheus-5.4.3

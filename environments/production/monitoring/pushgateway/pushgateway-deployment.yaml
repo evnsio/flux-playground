@@ -10,6 +10,7 @@ metadata:
     heritage: Tiller
     release: prod
   name: prod-prometheus-pushgateway
+  namespace: monitoring
 spec:
   replicas: 1
   template:
