@@ -33,13 +33,13 @@ For flux to work, it needs to be able to read from and write to the source git r
 
 To enable this, we need to add the auto-generated SSH key to GitHub.
 
-We can extract the public key using fluxctl.  
+We can extract the public key using fluxctl, or by looking in the flux pod logs:
 
 ```
 $ fluxctl identity
 ```
 
-Alternatively, we can extract the key from the flux pod logs, for example:
+or
 
 ```
 $ kubectl logs flux-5896444d98-d7gxk
