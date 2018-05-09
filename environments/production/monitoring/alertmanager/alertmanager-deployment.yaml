@@ -1,0 +1,70 @@
+##---
+# Source: prometheus/templates/alertmanager-deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: prometheus
+    chart: prometheus-5.4.3
+    component: "alertmanager"
+    heritage: Tiller
+    release: prod
+  name: prod-prometheus-alertmanager
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: prometheus
+        component: "alertmanager"
+        release: prod
+    spec:
+      serviceAccountName: prod-prometheus-alertmanager
+      containers:
+        - name: prometheus-alertmanager
+          image: "prom/alertmanager:v0.13.0"
+          imagePullPolicy: "IfNotPresent"
+          env:
+          args:
+            - --config.file=/etc/config/alertmanager.yml
+            - --storage.path=/data
+            - --web.external-url=/
+
+          ports:
+            - containerPort: 9093
+          readinessProbe:
+            httpGet:
+              path: /#/status
+              port: 9093
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+          resources:
+            {}
+            
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+            - name: storage-volume
+              mountPath: "/data"
+              subPath: ""
+
+        - name: prometheus-alertmanager-configmap-reload
+          image: "jimmidyson/configmap-reload:v0.1"
+          imagePullPolicy: "IfNotPresent"
+          args:
+            - --volume-dir=/etc/config
+            - --webhook-url=http://localhost:9093/-/reload
+          resources:
+            {}
+            
+          volumeMounts:
+            - name: config-volume
+              mountPath: /etc/config
+              readOnly: true
+      volumes:
+        - name: config-volume
+          configMap:
+            name: prod-prometheus-alertmanager
+        - name: storage-volume
+          persistentVolumeClaim:
+            claimName: prod-prometheus-alertmanager

@@ -1,0 +1,22 @@
+##---
+# Source: grafana/templates/svc.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: prod-grafana
+    chart: "grafana-0.8.3"
+    component: "grafana"
+    heritage: "Tiller"
+    release: "prod"
+  name: prod-grafana
+spec:
+  ports:
+    - name: "http"
+      port: 80
+      protocol: TCP
+      targetPort: 3000  
+  selector:
+    app: prod-grafana
+    component: "grafana"
+  type: "ClusterIP"

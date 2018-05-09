@@ -1,0 +1,75 @@
+##---
+# Source: grafana/templates/deployment.yaml
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: prod-grafana
+    chart: "grafana-0.8.3"
+    component: "grafana"
+    heritage: "Tiller"
+    release: "prod"
+  name: prod-grafana
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        checksum/config: fc0e5e0e635b763041c654bd46e0e227dbd1e4fce010eabed15d9607b7051289
+        checksum/dashboards-config: e4ff729a0ec8bcff48be38b9c58fde01ebcbccdb1bd1ae5e193b7051f0d86c56
+      labels:
+        app: prod-grafana
+        component: "grafana"
+        release: "prod"
+    spec:
+      nodeSelector:
+        {}
+        
+      containers:
+        - name: grafana
+          image: "grafana/grafana:5.1.1"
+          imagePullPolicy: Always
+          env:
+            - name: GF_SECURITY_ADMIN_USER
+              valueFrom:
+                secretKeyRef:
+                  name: prod-grafana
+                  key: grafana-admin-user
+            - name: GF_SECURITY_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: prod-grafana
+                  key: grafana-admin-password
+          ports:
+            - containerPort: 3000
+          readinessProbe:
+            httpGet:
+              path: /api/health
+              port: 3000
+            initialDelaySeconds: 30
+            timeoutSeconds: 30
+            
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            
+          volumeMounts:
+            - name: config-volume
+              mountPath: "/etc/grafana"
+            - name: dashboard-volume
+              mountPath: "/var/lib/grafana/dashboards"
+            - name: storage-volume
+              mountPath: "/var/lib/grafana"
+              subPath: ""
+      terminationGracePeriodSeconds: 300
+      volumes:
+        - name: config-volume
+          configMap:
+            name: prod-grafana-config
+        - name: dashboard-volume
+          configMap:
+            name: prod-grafana-dashs
+        - name: storage-volume
+          persistentVolumeClaim:
+            claimName: prod-grafana

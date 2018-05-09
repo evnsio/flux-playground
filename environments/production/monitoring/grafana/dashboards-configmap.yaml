@@ -1,0 +1,15 @@
+##---
+# Source: grafana/templates/dashboards-configmap.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  labels:
+    app: prod-grafana
+    chart: "grafana-0.8.3"
+    component: "grafana"
+    heritage: "Tiller"
+    release: "prod"
+  name: prod-grafana-dashs
+data:
+  {}
+  

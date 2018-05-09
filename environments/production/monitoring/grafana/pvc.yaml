@@ -1,0 +1,19 @@
+##---
+# Source: grafana/templates/pvc.yaml
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  annotations:
+  labels:
+    app: prod-grafana
+    chart: "grafana-0.8.3"
+    component: "grafana"
+    heritage: "Tiller"
+    release: "prod"
+  name: prod-grafana
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: "1Gi"
