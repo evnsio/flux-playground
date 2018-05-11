@@ -32,7 +32,7 @@ spec:
         # There are no ":latest" images for flux. Find the most recent
         # release or image version at https://quay.io/weaveworks/flux
         # and replace the tag here.
-        image: quay.io/weaveworks/flux:1.3.0
+        image: {{ .Values.flux.image }}
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3030 # informational
@@ -43,24 +43,12 @@ spec:
         - name: git-keygen
           mountPath: /var/fluxd/keygen # to match image's ~/.ssh/config
         args:
-
-        # if you deployed memcached in a different namespace to flux,
-        # or with a different service name, you can supply these
-        # following two arguments to tell fluxd how to connect to it.
-        # - --memcached-hostname=memcached.default.svc.cluster.local
-        # - --memcached-service=memcached
-
         # this must be supplied, and be in the tmpfs (emptyDir)
         # mounted above, for K8s >= 1.10
-        - --ssh-keygen-dir=/var/fluxd/keygen
+        - --ssh-keygen-dir=/var/fluxd/keygen 
 
         # replace (at least) the following URL
-        - --git-url=git@github.com:evnsio/flux-playground
-        - --git-branch=master
-        - --git-path=environments/production
-        - --git-poll-interval=60s
-
-        # include these next two to connect to an "upstream" service
-        # (e.g., Weave Cloud). The token is particular to the service.
-        # - --connect=wss://cloud.weave.works/api/flux
-        # - --token=abc123abc123abc123abc123
+        - --git-url={{ .Values.flux.gitUrl }}
+        - --git-branch={{ .Values.flux.gitBranch }}
+        - --git-path={{ .Values.flux.gitPath }}
+        - --git-poll-interval={{ .Values.flux.gitPollInterval }}

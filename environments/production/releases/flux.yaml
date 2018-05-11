@@ -1,0 +1,19 @@
+---
+apiVersion: helm.integrations.flux.weave.works/v1alpha2
+kind: FluxHelmRelease
+metadata:
+  name: flux
+  namespace: weave
+spec:
+  chartGitPath: flux
+  releaseName: flux
+  values:
+    flux:
+      gitUrl: git@github.com:evnsio/flux-playground
+      gitBranch: master
+      gitPath: environments/production
+      gitPollInterval: 60s
+    fluxHelm:
+      gitUrl: git@github.com:evnsio/flux-playground.git
+      gitBranch: master
+      gitChartsPath: charts

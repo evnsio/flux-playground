@@ -28,13 +28,12 @@ spec:
       serviceAccountName: flux
       containers:
       - name: flux-helm-operator
-        image: 'quay.io/weaveworks/helm-operator:0.1.0-alpha'
+        image: {{ .Values.fluxHelm.image }}
         imagePullPolicy: IfNotPresent
         volumeMounts:
         - name: git-key
           mountPath: /etc/fluxd/ssh
         args:
-        # replace (at least) the following URL
-        - '--git-url=git@github.com:evnsio/flux-playground.git'
-        - '--git-branch=master'
-        - '--git-charts-path=charts'
+        - --git-url={{ .Values.fluxHelm.gitUrl }}
+        - --git-branch={{ .Values.fluxHelm.gitBranch }}
+        - --git-charts-path={{ .Values.fluxHelm.gitChartsPath }}
