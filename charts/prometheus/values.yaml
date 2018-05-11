@@ -47,7 +47,7 @@ alertmanager:
   ingress:
     ## If true, alertmanager Ingress will be created
     ##
-    enabled: true
+    enabled: false
 
     ## alertmanager Ingress annotations
     ##
@@ -58,8 +58,9 @@ alertmanager:
     ## alertmanager Ingress hostnames with optinal path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: 
-       - alertmanager.tools.prod
+    hosts: []
+    #   - alertmanager.domain.com
+    #   - domain.com/alertmanager
 
     ## alertmanager Ingress TLS configuration
     ## Secrets must be manually created in the namespace
@@ -426,7 +427,7 @@ server:
   ingress:
     ## If true, Prometheus server Ingress will be created
     ##
-    enabled: true
+    enabled: false
 
     ## Prometheus server Ingress annotations
     ##
@@ -437,8 +438,9 @@ server:
     ## Prometheus server Ingress hostnames with optinal path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: 
-      - prometheus.tools.prod
+    hosts: []
+    #   - prometheus.domain.com
+    #   - domain.com/prometheus
 
     ## Prometheus server Ingress TLS configuration
     ## Secrets must be manually created in the namespace
@@ -585,8 +587,9 @@ pushgateway:
     ## pushgateway Ingress hostnames with optinal path
     ## Must be provided if Ingress is enabled
     ##
-    hosts: 
-      - pushgateway.tools.prod
+    hosts: []
+    #   - pushgateway.domain.com
+    #   - domain.com/pushgateway
 
     ## pushgateway Ingress TLS configuration
     ## Secrets must be manually created in the namespace
